@@ -18,22 +18,18 @@
 
 ## 📌 Overview
 
-Offline Keycloak realm export & server configuration auditor
+OKeycloakX is an offline auditor for Keycloak realm exports and server configuration. It reviews realm-export JSON, `keycloak.conf`, KC_* environment settings, and legacy `standalone.xml` for realm, client, IdP, user/role, and server hardening issues. Findings map to CWE, MITRE ATT&CK, and OWASP ASVS with multi-format export and CI gates.
 
 ---
 
 ## ✨ Features
 
-- Realm settings — sslRequired, brute-force detection, password policy (length / hashIterations / algorithm), registration, verify-email, reset / login-with-email, remember-me, token & session lifespans, offline sessions, refresh-token rotation, OTP policy, required actions, login / admin events, default roles, browser headers
-- Clients — public + ROPC, implicit flow, wildcard / http redirect URIs, webOrigins, service accounts holding realm-management roles, full scope, PKCE, inline secrets
-- Identity brokering — trustEmail, auto-link first-broker flows, signature validation, inline IdP secrets
-- Users & roles — exported credentials, plaintext seeds, realm-admin / impersonation grants, composite escalation
-- Server — keycloak.conf / KC_* env / legacy standalone.xml (http-enabled, hostname-strict, proxy headers, db password, metrics / health, /auth relative path, admin hostname, TLS)
-- Keycloak version end-of-life detection
-- CWE + MITRE ATT&CK + OWASP ASVS mapping, secrets masked
-- Client inventory table, score / grade per realm & server
-- Export TXT / Markdown / JSON / CSV / SARIF 2.1.0
-- Self-test --demo, CI gates --fail-on / --min-severity
+- Realm settings: sslRequired, brute-force, password policy, registration, token/session lifespans, OTP, events, headers
+- Client checks: public/ROPC, implicit flow, wildcard/http redirect URIs, webOrigins, PKCE, inline secrets, full scope
+- Identity brokering: trustEmail, auto-link flows, signature validation, inline IdP secrets
+- Users & roles: exported credentials, plaintext seeds, realm-admin/impersonation grants, composite escalation
+- Server config via keycloak.conf / KC_* env / standalone.xml (HTTP, hostname-strict, proxy, DB password, metrics/health, TLS)
+- Score/grade, client inventory, EOL version hint, TXT/MD/JSON/CSV/SARIF export, `--demo` and fail-on gates
 
 ---
 
@@ -47,7 +43,10 @@ Offline Keycloak realm export & server configuration auditor
 ## 🚀 Usage
 
 ```bash
-./OKeycloakX
+./OKeycloakX --realm realm-export.json --conf keycloak.conf
+./OKeycloakX --scan --format sarif -o keycloak.sarif --fail-on high
+./OKeycloakX --demo --list-rules
+./OKeycloakX --help
 ```
 
 ---
